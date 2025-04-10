@@ -14,7 +14,7 @@
     if ([node isKindOfClass:[ORDeclareExpression class]]) {
         result = [self convertDeclareExp:(ORDeclareExpression *)node];
     }else if ([node isKindOfClass:[ORAssignExpression class]]) {
-        result = [self convertAssginExp:(ORAssignExpression *)node];
+        result = [self convertAssignExp:(ORAssignExpression *)node];
     }else if ([node isKindOfClass:[ORValueExpression class]]){
         result = [self convertOCValue:(ORValueExpression *)node];
     }else if ([node isKindOfClass:[ORIntegerValue class]]){
@@ -298,8 +298,43 @@ int indentationCont = 0;
     }
     return @"";
 }
-- (NSString *)convertAssginExp:(ORAssignExpression *)exp{
+- (NSString *)convertAssignExp:(ORAssignExpression *)exp{
     NSString *operator = @"=";
+    switch (exp.assignType) {
+        case AssignOperatorAssign:
+            operator = @"=";
+            break;
+        case AssignOperatorAssignAnd:
+            operator = @"&=";
+            break;
+        case AssignOperatorAssignOr:
+            operator = @"|=";
+            break;
+        case AssignOperatorAssignXor:
+            operator = @"^=";
+            break;
+        case AssignOperatorAssignAdd:
+            operator = @"+=";
+            break;
+        case AssignOperatorAssignSub:
+            operator = @"-=";
+            break;
+        case AssignOperatorAssignDiv:
+            operator = @"/=";
+            break;
+        case AssignOperatorAssignMuti:
+            operator = @"*=";
+            break;
+        case AssignOperatorAssignMod:
+            operator = @"%=";
+            break;
+        case AssignOperatorAssignShiftLeft:
+            operator = @"<<=";
+            break;
+        case AssignOperatorAssignShiftRight:
+            operator = @">>=";
+            break;
+    }
     return [NSString stringWithFormat:@"%@ %@ %@",[self convert:exp.value],operator,[self convert:exp.expression]];
 }
 - (NSString *)convertORIntegerValue:(ORIntegerValue *)value{
