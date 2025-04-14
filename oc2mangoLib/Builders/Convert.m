@@ -443,7 +443,7 @@ int indentationCont = 0;
     return content;
 }
 - (NSString *)convertDoWhileStatement:(ORDoWhileStatement *)statement{
-    return [NSString stringWithFormat:@"do%@while(%@)",[self convertScopeImp:statement.scopeImp],[self convert:statement.condition]];
+    return [NSString stringWithFormat:@"do%@while(%@);",[self convertScopeImp:statement.scopeImp],[self convert:statement.condition]];
 }
 - (NSString *)convertSwitchStatement:(ORSwitchStatement *)statement{
     return [NSString stringWithFormat:@"switch(%@){\n%@}",[self convert:statement.value],[self convertCaseStatements:statement.cases]];
